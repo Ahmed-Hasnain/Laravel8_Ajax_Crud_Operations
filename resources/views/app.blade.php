@@ -12,6 +12,8 @@
     <link href="{{asset('admin_assets/vendor/mdi-font/css/material-design-iconic-font.min.css')}}" rel="stylesheet" media="all">
     <link href="{{asset('admin_assets/vendor/bootstrap-4.1/bootstrap.min.css')}}" rel="stylesheet" media="all">
     <link href="{{asset('admin_assets/css/theme.css')}}" rel="stylesheet" media="all">
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
    <!--  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> -->
     <!-- <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
  -->
