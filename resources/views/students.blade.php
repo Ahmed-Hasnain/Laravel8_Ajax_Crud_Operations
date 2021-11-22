@@ -307,6 +307,7 @@
 
 		$(document).on('click','.add_student',function(e){
 			e.preventDefault();
+			$(this).text('Saving...');
 			var data={
 				'name': $('.name').val(),
 				'email': $('.email').val(),
@@ -333,6 +334,7 @@
 								$('#addStudent_form').append('<li>'+err_values+'</li>');
 								$('#addStudent_form').addClass('alert alert-danger');
 						});
+						$('.add_student').text('Save');
 					}
 					else{
 						$('#success_msg').html("");
@@ -340,6 +342,7 @@
 						$('#success_msg').text(response.message);
 						$('#addStudentModal').modal('hide');
 						$('#addStudentModal').find('input').val('');
+						$('.add_student').text('Save');
 						fetch_students();
 
 					}

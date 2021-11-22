@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Mail;
 
 class StudentController extends Controller
 {
@@ -40,6 +41,15 @@ class StudentController extends Controller
             $student->phone = $request->input('phone');
             $student->course = $request->input('course');
             $student->save();
+
+            $data = ['name'=> $request->input('name') , 'data'=> 'hello user'];
+            $user['to']= $request->input('email');
+            Mail::send('add_user_template',$data,function($messages) use ($user)
+            {
+                $messages->to($user['to']);
+                $messages->subject('You Are Added');
+            }
+          );
 
             return response()->json([
                 'status'=>200,
@@ -97,6 +107,15 @@ class StudentController extends Controller
             $student->course = $request->input('course');
             $student->save();
 
+            $data = ['name'=> $request->input('name') , 'data'=> 'hello user'];
+            $user['to']= $request->input('email');
+            Mail::send('add_user_template',$data,function($messages) use ($user)
+            {
+                $messages->to($user['to']);
+                $messages->subject('You Are Edited');
+            }
+          );
+
             return response()->json([
                 'status'=>200,
                 'message'=>'Student Updated Successfully'
@@ -105,10 +124,21 @@ class StudentController extends Controller
     }
 
 
-    public function deleteStudent($id){
+    public function deleteStudent($id)
+    {
         $student = Student::find($id);
         if ($student) {
             $student->delete();
+
+            $data = ['name'=> $student->name , 'data'=> 'hello user'];
+            $user['to']= $student->email;
+            Mail::send('add_user_template',$data,function($messages) use ($user)
+            {
+                $messages->to($user['to']);
+                $messages->subject('You Are deleted from Our Database');
+            }
+          );
+
             return response()->json([
             'status'=>200,
             'student'=>'Student Deleted Successfully',
@@ -121,4 +151,17 @@ class StudentController extends Controller
            ]);
         }  
     }
+
+    // public function add_User_Mail($name,$mail)
+    // {
+    //     $data = ['name'=> $name];
+    //     $user['to']= $mail;
+    //     Mail::send('add_user_template',$data,function(messages) use ($user)
+    //     {
+    //         $messages->to($user['to']);
+    //         $messages->subject('You Are Added');
+    //     }
+    //   );
+    // }
+
 }
